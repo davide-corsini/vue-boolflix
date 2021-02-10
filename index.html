@@ -51,13 +51,22 @@
                     vote:
                     {{ movie.vote_average }}
                     <div class="rating-star">
-                        <span v-for="n in maxStars">
-                            &star;</span>
-                        <div class="rating-color" :style=" {width: voteRating + '%'} "  >
+                        <span style="color:  gold;" v-for="n in movie.votoStelle">
+                            &star;
+                        </span>
+                        <span style="color: red;" v-for="n in (5-movie.votoStelle)" class="fa fa-star checked">
+                            &star;
+                        </span>
+                            <!-- <span v-for="d in (maxStars - movie.votoStelle")>
+                                
+                            </span> -->
+
+                            <!-- :style=" {width: voteRating + '%'} " -->
+                        <!-- <div class="rating-color">
                             <span v-for="k in maxStars" >
                                 &starf;
                             </span>
-                        </div>
+                        </div> -->
                     </div>
                 </p>
             </div>

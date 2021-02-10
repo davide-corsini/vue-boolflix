@@ -9,6 +9,7 @@ var app = new Vue({
 
         starValue: '',
         maxStars: 5,
+        arrayStelle: []
     },
     methods: {
         globalSearch(){//global search é una funzione global per la ricerca ad un evento keyup
@@ -23,7 +24,7 @@ var app = new Vue({
                 })
             .then((result) => {
                 this.movies = result.data.results;
-                console.log(this.movies);
+                console.log(this.movies, 'NEI FILM');
             })
 
 
@@ -38,10 +39,20 @@ var app = new Vue({
                 })
             .then((result) => {
                 this.movies = result.data.results;
+                // this.arrayStelle = result.data.results;
+                console.log(this.movies, 'TV SHOWWWWW');
 
-                this.movies.forEach(element => {
-                    console.log(element.vote_average, 'io sono ogni voto');
-                });
+
+
+                this.movies = this.movies.map(element => {
+                    return{
+                        ...element,
+                        votoStelle: Math.round(element.vote_average / 2)
+                    }
+                })
+
+                
+                
             })
 
 
@@ -49,10 +60,10 @@ var app = new Vue({
         },
         //funzione voto stars
         //La posso mettere in un computed o in un mounted??? Da chiedere
-        voteRating() {
-            return (Math.round(this.movies.vote_avarage) * this.maxStars) / 10;
-            
-        }
+        // voteRating() {
+        //     return (Math.round(this.movies.vote_average) * this.maxStars) / 10;
+        //     console.log(this.movies.vote_average);
+        // }
     },
 
 
