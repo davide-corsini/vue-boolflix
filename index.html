@@ -27,52 +27,48 @@
     
         <div class="cds-container container" >
 
-            <div class="film" v-for="movie in movies">
+            <div v-if="movies" class="film" v-for="movie in movies">
                 <img v-if="(movie.poster_path != null)" :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path" alt="">
-                <img v-else :src="'img/' + imgNull" alt="" class="imgNulla">
+                <img v-else-if="(movie.poster_path == null)" :src="'img/' + imgNull" alt="" class="imgNulla">
                 <h5>
-                    {{ movie.title || movie.name }}
-                    
+                    {{ movie.title }}
+                    {{movie.name}}
                 </h5>
                 <span style="font-size: 10px;" class="author">
                     Titolo Originale:
-                    {{ movie.original_title || movie.original_name}}
+                    {{ movie.original_title}}
+                    {{movie.original_name}}
+                    
+                    
                 </span>
                 <span class="year">
                     Data:
-                    {{ movie.release_date || movie.first_air_date}}
+                    {{ movie.release_date}} 
+                    {{movie.first_air_date}}
+                    
                 </span>
                 <p class="lingua">
                     lan:
                     {{ movie.original_language}}
+                    
                 </p>
-
-                <p>
+                <div>
                     vote:
                     {{ movie.vote_average }}
                     <div class="rating-star">
-                        <span style="color:  gold;" v-for="n in movie.votoStelle">
-                            &star;
+                        <span style="color: gold;" v-for="n in movie.votoStelle">
+                            &starf;
                         </span>
-                        <span style="color: red;" v-for="n in (5-movie.votoStelle)" class="fa fa-star checked">
-                            &star;
+                        <span style="color: white;" v-for="n in (maxStars-movie.votoStelle)" class="fa fa-star checked">
+                            &starf;
                         </span>
-                            <!-- <span v-for="d in (maxStars - movie.votoStelle")>
-                                
-                            </span> -->
-
-                            <!-- :style=" {width: voteRating + '%'} " -->
-                        <!-- <div class="rating-color">
-                            <span v-for="k in maxStars" >
-                                &starf;
-                            </span>
-                        </div> -->
                     </div>
-                </p>
+                </div>
+
+                
             </div>
         </div>
-        <p style="color: white">
-        </p>
+
     
     </div>
 
