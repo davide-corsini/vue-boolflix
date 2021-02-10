@@ -34,7 +34,7 @@
                     {{ movie.title || movie.name }}
                     
                 </h5>
-                <span class="author">
+                <span style="font-size: 10px;" class="author">
                     Titolo Originale:
                     {{ movie.original_title || movie.original_name}}
                 </span>
@@ -50,6 +50,15 @@
                 <p>
                     vote:
                     {{ movie.vote_average }}
+                    <div class="star-rating">
+                        <span v-for="n in maxStars" :style=" {width: voteRating + '%'} ">
+                            &star;</span>
+                        <div class="rating-color">
+                            <span v-for="n in maxStars">
+                                &starf;
+                            </span>
+                        </div>
+                    </div>
                 </p>
             </div>
         </div>

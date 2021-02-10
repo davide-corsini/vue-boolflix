@@ -5,7 +5,10 @@ var app = new Vue({
         query: '',
         apiKey: 'dd971d8403d27ab0d69820d891653085',
         movies: [],
-        imgNull: 'pellicola.jpg'
+        imgNull: 'pellicola.jpg',
+
+
+        maxStars: 5
     },
     methods: {
         globalSearch(){//global search é una funzione global per la ricerca ad un evento keyup
@@ -36,6 +39,16 @@ var app = new Vue({
             .then((result) => {
                 this.movies = result.data.results;
             })
+
+
+            
+        }
+    },
+    computed: {
+        //funzione voto stars
+        //La posso mettere in un computed o in un mounted??? Da chiedere
+        voteRating() {
+            return (this.movies.vote_avarage / this.maxStars) * 100
         }
     }
 
