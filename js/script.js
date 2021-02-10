@@ -42,15 +42,15 @@ var app = new Vue({
 
 
             
-        }
-    },
-    computed: {
+        },
         //funzione voto stars
         //La posso mettere in un computed o in un mounted??? Da chiedere
         voteRating() {
             return this.starValue=(this.movies.vote_avarage / this.maxStars) * 100;
         }
-    }
+    },
+
+
 
 
 
