@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- VueJs -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="app">
+
+        <header>
+            <div class="container">
+                <!-- <img src="img/logo.png" alt="logo"> -->
+    
+                <input type="text" placeholder="Inserisci titolo da cercare" v-model="query" @keyup.enter="globalSearch">
+            </div>
+    
+        </header>
+    
+        <div class="cds-container container" >
+
+            <div class="film" v-for="movie in movies">
+                <img v-if="(movie.poster_path != null)" :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path" alt="">
+                <img v-else :src="'img/' + imgNull" alt="" class="imgNulla">
+                <h3>
+                    {{ movie.title }}
+                </h3>
+                <span class="author">
+
+                </span>
+                <span class="year">
+
+                </span>
+            </div>
+        </div>
+        <p style="color: white">
+        </p>
+    
+    </div>
+
+
+
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>
