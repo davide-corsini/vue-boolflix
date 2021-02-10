@@ -31,7 +31,7 @@
                 <img v-if="(movie.poster_path != null)" :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path" alt="">
                 <img v-else :src="'img/' + imgNull" alt="" class="imgNulla">
                 <h3>
-                    {{ movie.title }}
+                    {{ movie.title || movie.name}}
                 </h3>
                 <span class="author">
 
