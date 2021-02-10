@@ -86,8 +86,19 @@ header img {
 /* parte rating stars */
 
 .rating-star{
-    color: rgba(255, 217, 0, 0.719);
     position: relative;
+}
+
+.rating-color span{
+    color: rgba(255, 217, 0, 0.719);
     
+}
+
+.rating-color{
+    overflow: hidden;
+    white-space: no-wrap;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
