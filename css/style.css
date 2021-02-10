@@ -89,13 +89,12 @@ header img {
     position: relative;
 }
 
-.rating-color span{
+.rating-color{
     color: rgba(255, 217, 0, 0.719);
     
 }
 
 .rating-color{
-    overflow: hidden;
     white-space: no-wrap;
     position: absolute;
     top: 0;

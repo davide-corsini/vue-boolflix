@@ -8,7 +8,7 @@ var app = new Vue({
         imgNull: 'pellicola.jpg',
 
         starValue: '',
-        maxStars: 5
+        maxStars: 5,
     },
     methods: {
         globalSearch(){//global search é una funzione global per la ricerca ad un evento keyup
@@ -39,7 +39,9 @@ var app = new Vue({
             .then((result) => {
                 this.movies = result.data.results;
 
-                
+                this.movies.forEach(element => {
+                    console.log(element.vote_average, 'io sono ogni voto');
+                });
             })
 
 
@@ -48,13 +50,7 @@ var app = new Vue({
         //funzione voto stars
         //La posso mettere in un computed o in un mounted??? Da chiedere
         voteRating() {
-
-            this.movies.forEach(element => {
-                if(element){
-
-                    (Math.round(this.element.vote_avarage/2) / this.maxStars) * 100;
-                }
-            });
+            return (Math.round(this.movies.vote_avarage) * this.maxStars) / 10;
             
         }
     },
