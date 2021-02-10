@@ -20,7 +20,7 @@
             <div class="container">
                 <!-- <img src="img/logo.png" alt="logo"> -->
     
-                <input type="text" placeholder="Inserisci titolo da cercare" v-model="query" @keyup.enter="globalSearch">
+                <input type="text" placeholder="Inserisci titolo da cercare" v-model="query" @keyup="globalSearch">
             </div>
     
         </header>
@@ -30,15 +30,27 @@
             <div class="film" v-for="movie in movies">
                 <img v-if="(movie.poster_path != null)" :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path" alt="">
                 <img v-else :src="'img/' + imgNull" alt="" class="imgNulla">
-                <h3>
-                    {{ movie.title || movie.name}}
-                </h3>
+                <h5>
+                    {{ movie.title || movie.name }}
+                    
+                </h5>
                 <span class="author">
-
+                    Titolo Originale:
+                    {{ movie.original_title || movie.original_name}}
                 </span>
                 <span class="year">
-
+                    Data:
+                    {{ movie.release_date || movie.first_air_date}}
                 </span>
+                <p class="lingua">
+                    lan:
+                    {{ movie.original_language}}
+                </p>
+
+                <p>
+                    vote:
+                    {{ movie.vote_average }}
+                </p>
             </div>
         </div>
         <p style="color: white">

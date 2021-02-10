@@ -42,7 +42,10 @@ header img {
     flex-basis: 200px;
     padding: 20px;
     margin: 10px 20px;
-    height: 360px;
+    /* doc originale */
+    /* height: 360px; */
+    /* doc originale */
+    height: 500px;
     background: rgb(46, 58, 70);
     text-align: center;
 }
@@ -51,10 +54,10 @@ header img {
     max-width: 100%;
 }
 
-.film h3 {
+.film h5 {
     margin: 20px 0;
     color: white;
-    font-size: 22px;
+    font-size: 18px;
     text-transform: uppercase;
 }
 
