@@ -81,3 +81,13 @@ header img {
     width: 342px;
     height: 240px;
 }
+
+
+/* parte rating stars */
+
+.rating-star{
+    color: rgba(255, 217, 0, 0.719);
+    position: relative;
+    
+}
+

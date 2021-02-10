@@ -7,7 +7,7 @@ var app = new Vue({
         movies: [],
         imgNull: 'pellicola.jpg',
 
-
+        starValue: '',
         maxStars: 5
     },
     methods: {
@@ -48,7 +48,7 @@ var app = new Vue({
         //funzione voto stars
         //La posso mettere in un computed o in un mounted??? Da chiedere
         voteRating() {
-            return (this.movies.vote_avarage / this.maxStars) * 100
+            return this.starValue=(this.movies.vote_avarage / this.maxStars) * 100;
         }
     }
 
