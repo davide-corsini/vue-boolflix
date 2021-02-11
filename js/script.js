@@ -9,7 +9,8 @@ var app = new Vue({
         imgNull: 'pellicola.jpg',
         maxStars: 5,
         film: 'movie',
-        start: false
+        start: false,
+        active: '',
     },
     methods: {
         globalSearch(){//global search é una funzione global per la ricerca ad un evento keyup
@@ -24,10 +25,17 @@ var app = new Vue({
                 })
             .then((result) => {
                 this.movies = result.data.results;
-                
+
+                this.ratingStars();
+
             })
 
-
+            this.movies = this.movies.map(element => {
+                return {
+                    ...element,
+                    votoStelle: Math.round(element.vote_average / 2)
+                }
+            })
 
             //Call for tv shows
             axios
@@ -40,10 +48,10 @@ var app = new Vue({
                 })
             .then((result) => {
                 this.movies = this.movies.concat( result.data.results );
-            
+
+                this.ratingStars();
             })
             
-            this.ratingStars();
             
         },
 
@@ -54,10 +62,20 @@ var app = new Vue({
                     votoStelle: Math.round(element.vote_average / 2)
                 }
             })
-        },
+        }
+        ,
 
         startResearch(){
             this.start = !this.start;
+            if(this.start == true){
+                this.active = 'active';
+            }
+            else{
+                this.active = '';
+            }
+        },
+        comeBack(){
+            
         }
     },
 
