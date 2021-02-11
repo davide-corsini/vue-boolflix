@@ -5,19 +5,16 @@
     box-sizing: border-box;
 }
 
-
-.none{
-    display: none;
-}
-
 body {
     background: #1E2D3B;
     min-height: 100vh;
 }
 header {
     width: 100%;
-    height: 140px;
+    height: 70px;
     background-color: black;
+
+    position: relative;
 }
 header img {
     height: 50px;
@@ -30,7 +27,6 @@ header img {
     margin: 0 auto;
     display: flex;
     /* debgu */
-    background: pink;
     justify-content: space-between;
 }
 .container-show.none{
@@ -59,6 +55,7 @@ header img {
 .start i{
     color: #fff;
     font-size: 30px;
+    cursor: pointer;
 }
 .container-hide{
     display: none;
@@ -81,6 +78,8 @@ div.back{
     left: 0;
     font-size: 25px;
     color: #fff;
+    width: 3%;
+    cursor: pointer;
 }
 .cont-search{
     width: 30%;
@@ -108,6 +107,25 @@ div.back{
 font-size: 25px;
 color: #fff;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .cds-container {
     display: flex;

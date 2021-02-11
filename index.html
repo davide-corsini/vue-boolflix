@@ -19,7 +19,7 @@
     <div id="app">
 
         <header>
-            <div class="container-show">
+            <div class="container-show" :class="none">
                 <div class="logo">
                     <i class="fas fa-bars"></i>
                     <img src="https://fontmeme.com/permalink/210211/3a556e646da6ef1ef15ddf788361d7b4.png" alt="">
@@ -31,8 +31,8 @@
             </div>
 
             <div class="container-hide" v-if="start" :class="active">
-                <div class="back">
-                    <i class="fas fa-arrow-left"></i>
+                <div class="back" @click="comeBack">
+                    <i  class="fas fa-arrow-left"></i>
                 </div>
                 <div class="cont-search">
                     <i class="fas fa-search"></i>

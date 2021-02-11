@@ -10,6 +10,9 @@ var app = new Vue({
         maxStars: 5,
         film: 'movie',
         start: false,
+        back: true,
+        //for css
+        none: '',
         active: '',
     },
     methods: {
@@ -69,13 +72,20 @@ var app = new Vue({
             this.start = !this.start;
             if(this.start == true){
                 this.active = 'active';
+                this.none= 'none';
             }
             else{
+                this.none = ''
                 this.active = '';
             }
         },
         comeBack(){
-            
+            this.back=!this.back;
+            if(this.back == true){
+                this.active= '';
+                this.none = '';
+            }
+   
         }
     },
 
