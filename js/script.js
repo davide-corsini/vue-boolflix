@@ -50,7 +50,12 @@ var app = new Vue({
                 // this.arrayStelle = result.data.results;
                 console.log(this.movies, 'TV SHOWWWWW');
 
-
+                this.movies = this.movies.map(element => {
+                    return {
+                        ...element,
+                        votoStelle: Math.round(element.vote_average / 2)
+                    }
+                })
 
         
                 
