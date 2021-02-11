@@ -7,15 +7,9 @@ var app = new Vue({
         movies: [],
         seriesTv: [],
         imgNull: 'pellicola.jpg',
-        starValue: '',
         maxStars: 5,
         film: 'movie',
-
-        flag: ['de','en','es','fr','it','ja','pt','us'],
-
-            
-
-        italia: 'it'
+        start: false
     },
     methods: {
         globalSearch(){//global search é una funzione global per la ricerca ad un evento keyup
@@ -30,27 +24,9 @@ var app = new Vue({
                 })
             .then((result) => {
                 this.movies = result.data.results;
-                console.log(this.movies, 'NEI FILM');
-
-                this.movies = this.movies.map(element => {
-                    return {
-                        ...element,
-                        votoStelle: Math.round(element.vote_average / 2)
-                    }
-                })
-
-
-                this.movies.forEach(element => {
-                    console.log(element.original_language);
-                    if(element.original_language == this.flag.element){
-                        console.log('ciao');
-                    }
-                });
-
-
-
-
+                
             })
+
 
 
             //Call for tv shows
@@ -63,20 +39,25 @@ var app = new Vue({
                     }
                 })
             .then((result) => {
-                this.movies = result.data.results;
-                // this.arrayStelle = result.data.results;
-                console.log(this.movies, 'TV SHOWWWWW');
-                //mappo array e aggiungo key---> votoStelle
-                this.movies = this.movies.map(element => {
-                    return {
-                        ...element,
-                        votoStelle: Math.round(element.vote_average / 2)
-                    }
-                })
-            })
-
-
+                this.movies = this.movies.concat( result.data.results );
             
+            })
+            
+            this.ratingStars();
+            
+        },
+
+        ratingStars(){
+            this.movies = this.movies.map(element => {
+                return {
+                    ...element,
+                    votoStelle: Math.round(element.vote_average / 2)
+                }
+            })
+        },
+
+        startResearch(){
+            this.start = !this.start;
         }
     },
 

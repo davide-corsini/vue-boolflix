@@ -10,8 +10,10 @@
     
     <!-- VueJs -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-    <!-- axios -->
+    <!-- axios cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+    <!-- font-awesome-cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 </head>
 <body>
     <div id="app">
@@ -20,25 +22,25 @@
             <div class="container">
                 <!-- <img src="img/logo.png" alt="logo"> -->
     
-                <input type="text" placeholder="Inserisci titolo da cercare" v-model="query" @keyup="globalSearch">
+                <input v-if="start" type="text" placeholder="Inserisci titolo da cercare" v-model="query" @keyup="globalSearch">
+                <div class="start" @click="startResearch">
+                    <i style="font-size: 50px; color: #fff" class="fas fa-search"></i>
+                </div>
             </div>
     
         </header>
     
         <div class="cds-container container" >
 
-            <div v-if="movies" class="film" v-for="movie in movies">
-                <img v-if="(movie.poster_path != null)" :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path" alt="">
+            <div v-if=" movies " class="film" v-for=" movie in movies ">
+                <img v-if=" (movie.poster_path != null) " :src=" 'https://image.tmdb.org/t/p/w342' + movie.poster_path " alt="">
                 <img v-else :src="'img/' + imgNull" alt="" class="imgNulla">
-                <!-- <img :src="'img/' + italia" style="width: 300px;" alt=""> -->
                 <h5>
-                    <!-- *chiedi a cristina se scrivere cosi o || é identico  -->
-                    <!-- {chiedi logica di sovrascrittura dati al momento della "chiamata" -->
-                    {{ movie.title || movie.name}}
+                    {{ movie.title || movie.name }}
                 </h5>
                 <span style="font-size: 10px;" class="author">
                     Titolo Originale:
-                    {{ movie.original_title || movie.original_name}}
+                    {{ movie.original_title || movie.original_name }}
                     
                     
                 </span>
@@ -47,10 +49,10 @@
                     {{ movie.release_date || movie.first_air_date }} 
                     
                 </span>
-                <!-- <img :src=""  class="imgNulla" alt=""> -->
                 <div class="lingua">
                     lan:
-                    {{ movie.original_language}}
+                    {{ movie.original_language }}
+                    <img :src=" 'img/' + movie.original_language +'.png' "  class="flag" alt="">
                 </div>
                 <div>
                     vote:
@@ -59,13 +61,17 @@
                         <span style="color: gold; -webkit-text-stroke: black;" v-for="n in movie.votoStelle">
                             &starf;
                         </span>
-                        <span style="color: white; -webkit-text-stroke: black;" v-for="n in (maxStars - movie.votoStelle)" class="fa fa-star checked">
+                        <span style="color: white; -webkit-text-stroke: black;" v-for="n in (maxStars - movie.votoStelle)">
                             &starf;
                         </span>
                     </div>
                 </div>
 
                 
+            </div>
+
+            <div v-else>
+                <h2>I criteri inseriti non hanno soddisfatto la ricerca</h2>
             </div>
         </div>
 
