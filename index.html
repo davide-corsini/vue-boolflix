@@ -53,9 +53,9 @@
                 </div>
                 <div class="cds-container container" >
                     <div v-if=" movies " class="film" v-for=" (movie,index) in movies ">
-                        <div  class="posts">
-                                <img @mouseover="hoverDescription(index)"  :class="noneImg" v-if=" (movie.poster_path != null) " :src=" 'https://image.tmdb.org/t/p/w342' + movie.poster_path " class="poster" alt="">
-                                <img @mouseover="hoverDescription(index)" :class="noneImg" v-else :src="'img/' + imgNull" alt="" class="imgNulla"> 
+                        <div @mouseover="hoverDescription(index)"   class="posts">
+                                <img :class="noneImg" v-if=" (movie.poster_path != null) " :src=" 'https://image.tmdb.org/t/p/w342' + movie.poster_path " class="poster" alt="">
+                                <img :class="noneImg" v-else :src="'img/' + imgNull" alt="" class="imgNulla"> 
                             <div v-if="movies[index].activeHover" class="active-hover" :class="activeImg">
                                 <h5>
                                     {{ movie.title || movie.name }}

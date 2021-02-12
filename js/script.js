@@ -103,35 +103,16 @@ var app = new Vue({
             this.movies[index].activeHover = !this.movies[index].activeHover;
 
             console.log(this.movies[index].activeHover);
-
-            // this.activeHover[index] = !this.activeHover[index];
             
-
             if (this.movies[index].activeHover == true) {
-                this.activeImg= 'activeImg';
+                this.activeImg = 'activeImg';
                 this.noneImg = 'noneImg';
             }
             else {
                 this.activeImg = '';
                 this.noneImg = '';
             }
-            // if (this.activeHover == true) {
-            //     this.activeImg = 'activeImg';
-            //     this.noneImg = 'noneImg';
-            // }
-            // else {
-            //     this.activeImg = '';
-            //     this.noneImg = '';
-            // }
-        },
-        hoverBack(mnouseleave){
 
-            this.activeHover = !this.activeHover;
-
-            if (this.activeHover == true) {
-                this.activeImg = '';
-                this.noneImg = '';
-            }
         }
     },
 
