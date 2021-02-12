@@ -125,18 +125,28 @@ h2.cds-title{
     text-align: center;
 }
 
-
+/* *questo é testo che non si vede */
 div.active-hover{
     width: 100%;
     height: 100%;
     z-index: 2;
     display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-div.active-hover.active{
+
+/*. questo si vede*/
+div.active-hover.activeImg{
     width: 100%;
     height: 100%;
     z-index: 2;
     display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 
@@ -150,6 +160,7 @@ div.posts{
     width: 100%;
     height: 240px;
     border: 2px solid rgba(0, 0, 0, 0.877);
+    position: relative;
 }
 div.posts img{
     width: 100%;
@@ -158,11 +169,10 @@ div.posts img{
     position: relative;
 }
 
-div.posts img.none{
+div.posts img.noneImg{
     width: 100%;
     height: 100%;
     background-position: center;
-    position: relative;
     opacity: 0.1;
 }
 

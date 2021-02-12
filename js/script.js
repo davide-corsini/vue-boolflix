@@ -15,6 +15,9 @@ var app = new Vue({
         //for css
         none: '',
         active: '',
+        activeImg: '',
+        noneImg: '',
+        contatore: 0
     },
     methods: {
         globalSearch(){//global search é una funzione global per la ricerca ad un evento keyup
@@ -87,17 +90,47 @@ var app = new Vue({
                 this.none = '';
             }
         },
-        hoverDescription(){
-            this.movies
-            this.activeHover = !this.activeHover;
+        hoverDescription(index){
+            this.movies = this.movies.map((element) => {
+                return{
+                    ...element,
+                    activeHover: false
+                }
+            })
+            console.log(this.movies);
+
+
+            this.movies[index].activeHover = !this.movies[index].activeHover;
+
+            console.log(this.movies[index].activeHover);
+
+            // this.activeHover[index] = !this.activeHover[index];
             
-            if (this.activeHover == true) {
-                this.active = 'active';
-                this.none = 'none';
+
+            if (this.movies[index].activeHover == true) {
+                this.activeImg= 'activeImg';
+                this.noneImg = 'noneImg';
             }
             else {
-                this.active = '';
-                this.none = '';
+                this.activeImg = '';
+                this.noneImg = '';
+            }
+            // if (this.activeHover == true) {
+            //     this.activeImg = 'activeImg';
+            //     this.noneImg = 'noneImg';
+            // }
+            // else {
+            //     this.activeImg = '';
+            //     this.noneImg = '';
+            // }
+        },
+        hoverBack(mnouseleave){
+
+            this.activeHover = !this.activeHover;
+
+            if (this.activeHover == true) {
+                this.activeImg = '';
+                this.noneImg = '';
             }
         }
     },
