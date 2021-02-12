@@ -113,6 +113,9 @@ var app = new Vue({
                 this.noneImg = '';
             }
 
+        },
+        hoverBack(index){
+            return this.movies[index].activeHover = false;
         }
     },
 
