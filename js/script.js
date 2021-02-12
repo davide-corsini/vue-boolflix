@@ -11,6 +11,7 @@ var app = new Vue({
         film: 'movie',
         start: false,
         back: true,
+        activeHover: false,
         //for css
         none: '',
         active: '',
@@ -75,7 +76,7 @@ var app = new Vue({
                 this.none= 'none';
             }
             else{
-                this.none = ''
+                this.none = '';
                 this.active = '';
             }
         },
@@ -85,7 +86,19 @@ var app = new Vue({
                 this.active= '';
                 this.none = '';
             }
-   
+        },
+        hoverDescription(){
+            this.movies
+            this.activeHover = !this.activeHover;
+            
+            if (this.activeHover == true) {
+                this.active = 'active';
+                this.none = 'none';
+            }
+            else {
+                this.active = '';
+                this.none = '';
+            }
         }
     },
 

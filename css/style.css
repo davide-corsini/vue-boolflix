@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 body {
+    background: black;
     min-height: 100vh;
 }
 header {
@@ -84,13 +85,24 @@ div.back{
 }
 
 /** Start main */
-main.main-container{
-    background-color: coral;
+
+
+
+.main-container{
+    margin:  auto;
     width: 96%;
     height: 100%;
+    height: 100%;
     margin: 0 auto;
+}
+
+
+.main-header{
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    color: white;
+    font-size:  1.6rem;
 }
 h2.cds-title{
     color: #fff;
@@ -98,11 +110,10 @@ h2.cds-title{
 }
 
 .cds-container {
+    width: 70%;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 100px 0;
 }
 
 .film {
@@ -110,25 +121,55 @@ h2.cds-title{
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    flex-basis: 200px;
-    padding: 20px;
-    margin: 10px 20px;
-    /* doc originale */
-    /* height: 360px; */
-    /* doc originale */
-    height: 500px;
+    flex-basis: calc(100% / 3 );
     text-align: center;
-    background-color: pink;
 }
+
+
+div.active-hover{
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: none;
+}
+div.active-hover.active{
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: block;
+}
+
+
+
 
 .film img {
     max-width: 100%;
 }
 
+div.posts{
+    width: 100%;
+    height: 240px;
+    border: 2px solid rgba(0, 0, 0, 0.877);
+}
+div.posts img{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    position: relative;
+}
+
+div.posts img.none{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    position: relative;
+    opacity: 0.1;
+}
+
 .film h5 {
     margin: 20px 0;
     color: white;
-    font-size: 18px;
+    font-size: 10px;
     text-transform: uppercase;
 }
 
@@ -154,9 +195,10 @@ h2.cds-title{
 }
 
 
-.flag{
+#flag{
     width: 20px;
-}
+    height: 20px;
+} 
 
 /* parte rating stars */
 

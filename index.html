@@ -46,48 +46,57 @@
             -->
         </header>
         <main>
-            <div v-if="query.length > 0"  class="main-container">
-                <h2 class="cds-title">Film e programmi TV</h2>
+            <div  v-if="query.length > 0"  class="main-container">
+                <div class="main-header" style="margin-bottom: 5%;">
+                    <h2 class="cds-title">Film e programmi TV</h2>
+                    <h2>Suggerimenti</h2>
+                </div>
                 <div class="cds-container container" >
-                    <div v-if=" movies " class="film" v-for=" movie in movies ">
-                        <img v-if=" (movie.poster_path != null) " :src=" 'https://image.tmdb.org/t/p/w342' + movie.poster_path " alt="">
-                        <img v-else :src="'img/' + imgNull" alt="" class="imgNulla">
-                        <h5>
-                            {{ movie.title || movie.name }}
-                        </h5>
-                        <span style="font-size: 10px;" class="author">
-                            Titolo Originale:
-                            {{ movie.original_title || movie.original_name }}
-                            
-                            
-                        </span>
-                        <span class="year">
-                            Data:
-                            {{ movie.release_date || movie.first_air_date }} 
-                            
-                        </span>
-                        <div class="lingua">
-                            lan:
-                            {{ movie.original_language }}
-                            <img :src=" 'img/' + movie.original_language +'.png' "  class="flag" alt="">
-                        </div>
-                        <div>
-                            vote:
-                            {{ movie.vote_average }}
-                            <div class="rating-star">
-                                <span style="color: gold; -webkit-text-stroke: black;" v-for="n in movie.votoStelle">
-                                    &starf;
+                    <div v-if=" movies " class="film" v-for=" (movie,index) in movies ">
+                        <div  class="posts">
+                                <img @mouseover="hoverDescription(index)"  :class="none" v-if=" (movie.poster_path != null) " :src=" 'https://image.tmdb.org/t/p/w342' + movie.poster_path " class="poster" alt="">
+                                <img :class="none" v-else :src="'img/' + imgNull" alt="" class="imgNulla"> 
+                            <div  v-if="activeHover" class="active-hover" :class="active">
+                                <h5>
+                                    {{ movie.title || movie.name }}
+                                </h5>
+                                <span style="font-size: 10px;" class="author">
+                                    Titolo Originale:
+                                    {{ movie.original_title || movie.original_name }}
+                                    
+                                    
                                 </span>
-                                <span style="color: white; -webkit-text-stroke: black;" v-for="n in (maxStars - movie.votoStelle)">
-                                    &starf;
+                                <span class="year">
+                                    Data:
+                                    {{ movie.release_date || movie.first_air_date }} 
+                                    
                                 </span>
+                                <div class="lingua">
+                                    lan:
+                                    {{ movie.original_language }}
+                                    <img :src=" 'img/' + movie.original_language +'.png' "  id="flag" alt="">
+                                </div>
+                                <div>
+                                    vote:
+                                    {{ movie.vote_average }}
+                                    <div class="rating-star">
+                                        <span style="color: gold; -webkit-text-stroke: black;" v-for="n in movie.votoStelle">
+                                            &starf;
+                                        </span>
+                                        <span style="color: white; -webkit-text-stroke: black;" v-for="n in (maxStars - movie.votoStelle)">
+                                            &starf;
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
         
                         
                     </div>
         
-                   
+                    <div v-else>
+                        <h2>I criteri inseriti non hanno soddisfatto la ricerca</h2>
+                    </div>
                 </div>
             </main>
 
