@@ -19,7 +19,7 @@
 </head>
 <body>
     <div id="app">
-        <!-- <div class="tot" :class="start==true ? 'scomparso' : ''" > -->
+        <!-- start header -->
             <header>
                 <div class="container-show" :class="none">
                     <div class="logo">
@@ -32,6 +32,7 @@
                         <i class="fas fa-ellipsis-h"></i>
                     </div>
                 </div>
+                <!-- content hide , content fo start the research -->
                 <div class="container-hide" v-if="start" :class="active">
                     <div class="back" @click="comeBack">
                         <i class="fas fa-arrow-left"></i>
@@ -43,32 +44,34 @@
 
                 </div>
             </header>
-        <!-- </div> -->
+            <!-- /header -->
 
+
+            <!-- content video and poster avatar -->
             <div class="video-container" v-if="query.length == 0" :class="opacity">
-                <div style="color: white">
+                <div style="color: white; display: flex; align-items: center; justify-content: center;">
+                    <img class="avatar-img" src="https://ivid.akamaized.net/media/foto/1900/01/08/avatar_locandina_originale_a45e4.jpg" alt="">
                 </div>
                 <div class="border-video">
                     <video loop autoplay class="video" src="avatar.mp4" type="video.mp4"></video>
-
                 </div>
             </div>
-            <div class="lista-consigliati"  v-if="query.length == 0" :class="opacity" >
+            <!-- /end video and poster avatar -->
 
-                <div style="margin-top: 20px; display: flex; flex-direction: column; justify-content: space-around;">
-    
+            <!-- total list of home page daveflix list of each type ((rated, top, awards film and so on...)) -->
+            <div class="lista-consigliati"  v-if="query.length == 0" :class="opacity" >
+                <!-- first list Top Movie -->
+                <div style="margin: 40px 0; display: flex; flex-direction: column; justify-content: space-around;">
+
                     <h3 style="color: #fff; padding: 0; margin: 0;">Top film su Daveflix</h3>
                     <div  class="template-img ">
-    
-                        <div :class="pxScroll == 0 ? 'none' : ''" class="prev" @click="prevImg">
-                            <i class="fas fa-arrow-left"></i>
-                        </div>
+                            <div :class="pxScroll == 0 ? 'none' : ''" class="prev" @click="prevImg">
+                                <i class="fas fa-arrow-left"></i>
+                            </div>
                         <div class="img-array" >
-    
                             <div :style="`left: ${pxScroll}px`" class="invisible">
                                 <div v-for='(top, index) in topMovies' class="container-img-slider">
-                                    <img :src="'https://image.tmdb.org/t/p/w342' + top.poster_path " alt="">
-    
+                                    <img :src="'https://image.tmdb.org/t/p/w342' + top.poster_path " alt="poster">
                                 </div>
                             </div>
                         </div>
@@ -79,21 +82,20 @@
     
                     </div>
                 </div>
-                
-                <div style="margin: 40px 0; display: flex; flex-direction: column; justify-content: space-around;">
+                <!-- /top film list -->
+
+                <!-- second list popular tv shows -->
+                <div style="margin-bottom: 40px 0; display: flex; flex-direction: column; justify-content: space-around;">
     
                     <h3 style="color: #fff; padding: 0; margin: 0;">Serie Tv popolari su Daveflix</h3>
                     <div class="template-img ">
-    
                         <div  :class="pxScroll == 0 ? 'none' : ''"  class="prev" @click="prevImg">
                             <i class="fas fa-arrow-left"></i>
                         </div>
                         <div class="img-array" style='height: 300px;'>
-    
                             <div :style="`left: ${pxScroll}px`" class="invisible">
                                 <div v-for='(top, index) in topSeries' class="container-img-slider">
-                                    <img :src="'https://image.tmdb.org/t/p/w342' + top.poster_path " alt="">
-    
+                                    <img :src="'https://image.tmdb.org/t/p/w342' + top.poster_path " alt="poster">
                                 </div>
                             </div>
                         </div>
@@ -104,53 +106,54 @@
     
                     </div>
                 </div>
+                <!-- /end of tv shows popular -->
+                
+                <!-- most famous movies ever -->
+                <div style="margin: 80px 0;">
     
-                <div style=" display: flex; flex-direction: column; justify-content: space-around;">
-    
-                    <h3 style="color: #fff; padding: 0; margin: 0;">Film con attori popolari su Daveflix</h3>
+                    <h3 style="color: #fff; padding: 0; ">Film con attori popolari su Daveflix</h3>
                     <div  class="template-img ">
-    
                         <div :class="pxScroll == 0 ? 'none' : ''"  class="prev" @click="prevImg">
                             <i class="fas fa-arrow-left"></i>
                         </div>
                         <div class="img-array" style='height: 300px;'>
-    
                             <div :style="`left: ${pxScroll}px`" class="invisible">
                                 <div v-for='(top, index) in person' class="container-img-slider">
-                                    <img :src="'https://image.tmdb.org/t/p/w342' + top.poster_path" alt="">
-    
+                                    <img :src="'https://image.tmdb.org/t/p/w342' + top.poster_path" alt="poster">
                                 </div>
                             </div>
-                        </div>
-    
+                        </div>    
                         <div class="next" :class="none" @click='nextImg'>
                             <i class="fas fa-arrow-right"></i>
-                        </div>
-    
+                        </div>    
                     </div>
                 </div>
-
+                <!-- end of most famous movies -->
             </div>
+            <!-- end of total list home page -->
 
+
+
+
+        <!-- start main -->
         <main>
-
-
+            <!-- main container -->
             <div v-if="query.length > 0"  class="main-container">
                 <div class="main-header" style="margin-bottom: 5%;">
                     <h2  style="font-weight: 300;" class="cds-title">Film e programmi TV</h2>
-                    <h2 style="font-weight: 300;" >Suggerimenti</h2>
+                    <h2 class="cds-title" style="color: white; font-weight: 300;">Suggerimenti</h2>                   
                 </div>
-                <div class="cds-container container" >
+                <div class="cds-container" >
                     <div v-if=" movies " class="film" v-for=" (movie,index) in movies ">
                         <div @mouseleave="hoverBack(index)" @mouseover="hoverDescription(index)"   class="posts">
-                                <img :class="movies[index].activeHover ? noneImg : '' " v-if=" (movie.poster_path != null) " :src=" 'https://image.tmdb.org/t/p/w342' + movie.poster_path " class="poster" alt="">
-                                <img :class="movies[index].activeHover ? noneImg : '' " v-else :src="'img/' + imgNull" alt="" class="imgNulla">
+                            <img :class="movies[index].activeHover ? noneImg : '' " v-if=" (movie.poster_path != null) " :src=" 'https://image.tmdb.org/t/p/w342' + movie.poster_path " class="poster" alt="poster_path">
+                            <img :class="movies[index].activeHover ? noneImg : '' " v-else :src="'img/' + imgNull" alt="" class="imgNulla">
                             <div v-if="movies[index].activeHover" class="active-hover" :class=" activeImg ">
                                 <p class="film-title">
                                     {{ movie.title || movie.name }}
                                 </p>
                                 <div class="container-voto">
-
+                                    <!-- rating star vote -->
                                     <div class="rating-star">
                                         <span style="color: gold; -webkit-text-stroke: black;" v-for="n in movie.votoStelle">
                                             &starf;
@@ -163,42 +166,55 @@
                                         {{ movie.vote_average }} / 10
                                     </p>
                                 </div>
+                                    <!-- /rating star vote -->
+                                
 
+                                <!-- start lan -->
                                 <div class="lingua">
                                     {{ movie.original_language }}
                                     <img :src=" 'img/' + movie.original_language +'.png' "  id="flag" alt="">
                                 </div>
+                                <!-- /lang -->
+
+                                <!-- start original title -->
                                 <span style="font-size: 10px;" class="author">
                                     Titolo Originale:
                                     {{ movie.original_title || movie.original_name }}
-
-
                                 </span>
+                                <!-- /original_title -->
+
+                                <!-- start trama -->
                                 <p class="trama">
                                     {{ movie.overview }}
                                 </p>
+                                <!-- /trama -->
+
+                                <!-- start year dated -->
                                 <span class="year">
                                     Data:
                                     {{ movie.release_date || movie.first_air_date }}
-
                                 </span>
+                                <!-- start year dated -->
                             </div>
                         </div>
 
 
                     </div>
-
-                    <div v-else="query == false">
-                        <h2>I criteri inseriti non hanno soddisfatto la ricerca</h2>
-                    </div>
-                </div>
-            </main>
-
-
-
-
-
+                    
+                    <!-- suggerimenti -->
+                    <div class="suggest">
+                        <ul style="list-style: none;">
+                            <li v-for="movie in movies">
+                                {{movie.title || movie.name}}
+                            </li>
+                        </ul>
+                    </div> 
+            </div>
+            <!-- /end main-container -->
+        </main>
+        <!-- /end main -->
     </div>
+    <!-- /end div app -->
 
 
 
