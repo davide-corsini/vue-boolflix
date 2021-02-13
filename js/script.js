@@ -17,7 +17,57 @@ var app = new Vue({
         active: '',
         activeImg: '',
         noneImg: '',
-        contatore: 0
+        contatore: 0,
+        topMovies: [],
+        topSeries: [],
+        person: [],
+        pxScroll: 0,
+        attivoScroll: false,
+        attivoScroll2: false,
+        attivoScroll3: false,
+        opacity: false
+    },
+    created(){
+        // top rated films
+        axios
+            .get('https://api.themoviedb.org/3/movie/top_rated', {
+                params: {
+                    api_key: this.apiKey,
+                    // query: this.query,
+                    language: 'it-IT'
+                }
+            })
+            .then((result) => {
+                this.topMovies = result.data.results;
+
+            })
+
+
+        //top rated series
+        axios
+            .get('https://api.themoviedb.org/3/tv/top_rated', {
+                params: {
+                    api_key: this.apiKey,
+                    language: 'it-IT'
+                }
+            })
+        .then((result) => {
+            this.topSeries = result.data.results;
+        })    
+
+        //actor popular
+        axios
+            .get('https://api.themoviedb.org/3/movie/popular', {
+                params: {
+                    api_key: this.apiKey,
+                    language: 'it-IT'
+                }
+            })
+            .then((result) => {
+                this.person = result.data.results;
+            })    
+
+
     },
     methods: {
         globalSearch(){//global search é una funzione global per la ricerca ad un evento keyup
@@ -37,20 +87,13 @@ var app = new Vue({
 
             })
 
-            this.movies = this.movies.map(element => {
-                return {
-                    ...element,
-                    votoStelle: Math.round(element.vote_average / 2)
-                }
-            })
-
             //Call for tv shows
             axios
                 .get("https://api.themoviedb.org/3/search/tv", {
                     params:{
                         api_key: this.apiKey,
                         query: this.query,
-                        language: 'it-US'
+                        language: 'it-IT'
                     }
                 })
             .then((result) => {
@@ -77,6 +120,7 @@ var app = new Vue({
             if(this.start == true){
                 this.active = 'active';
                 this.none= 'none';
+                this.opacity = 'total-opacity'
             }
             else{
                 this.none = '';
@@ -88,6 +132,8 @@ var app = new Vue({
             if(this.back == true){
                 this.active= '';
                 this.none = '';
+                this.query = '';
+                this.opacity = '';
             }
         },
         hoverDescription(index){
@@ -116,7 +162,66 @@ var app = new Vue({
         },
         hoverBack(index){
             return this.movies[index].activeHover = false;
-        }
+        },
+
+
+        nextImg(){
+            let larghezzaImg = document.getElementsByClassName('container-img-slider')[0].offsetWidth;
+            console.log(larghezzaImg);
+            const container = document.getElementsByClassName('invisible')[0];
+            console.log(container);
+
+            const larghezzaContenitore = container.offsetWidth;
+            console.log(larghezzaContenitore);
+
+            const scrollLeft = Math.abs(container.style.left.replace('px', ''));
+            console.log(scrollLeft);
+
+            const larghezzaInner = document.getElementsByClassName('img-array')[0].offsetWidth;
+            console.log(larghezzaInner);
+            if (scrollLeft - 110 > (larghezzaContenitore - larghezzaInner - larghezzaImg)) {
+                this.none = 'none';
+                return;
+            }
+            this.pxScroll -= larghezzaImg;
+            
+            // console.log(scrollLeft, 'io sono scroll left');
+            // console.log(container, 'container');
+
+            console.log(this.pxScroll, 'io pxSCROLL');
+        
+        },
+        prevImg(){
+            var blocco = true;
+
+            this.countImg--;
+            let larghezzaImg = document.getElementsByClassName('container-img-slider')[0].offsetWidth;
+            console.log(larghezzaImg);
+            const container = document.getElementsByClassName('invisible')[0];
+            console.log(container);
+
+            const larghezzaContenitore = container.offsetWidth;
+            console.log(larghezzaContenitore);
+
+            const scrollRight = Math.abs(container.style.left.replace('px', ''));
+            console.log(scrollRight);
+
+            const larghezzaInner = document.getElementsByClassName('img-array')[0].offsetWidth;
+            console.log(larghezzaInner);
+
+
+            if (this.pxScroll == 0) {
+                return blocco = false;
+            }
+
+            if (scrollRight > (larghezzaContenitore + larghezzaInner + larghezzaImg)) {
+                console.log(scrollRight);
+                return;
+            }
+            this.pxScroll += larghezzaImg;
+            
+            return this.none = '';
+        }        
     },
 
 

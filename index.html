@@ -7,78 +7,150 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="css/style.css">
-    
+
     <!-- VueJs -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <!-- axios cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
     <!-- font-awesome-cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-
-        <header>
-            <div class="container-show" :class="none">
-                <div class="logo">
-                    <i class="fas fa-bars"></i>
-                    <img class="daveflix-logo" src="https://fontmeme.com/permalink/210211/3a556e646da6ef1ef15ddf788361d7b4.png" alt="">
+        <!-- <div class="tot" :class="start==true ? 'scomparso' : ''" > -->
+            <header>
+                <div class="container-show" :class="none">
+                    <div class="logo">
+                        <i class="fas fa-bars"></i>
+                        <img class="daveflix-logo" src="https://fontmeme.com/permalink/210211/3a556e646da6ef1ef15ddf788361d7b4.png"
+                            alt="">
+                    </div>
+                    <div class="start">
+                        <i class="fas fa-search" @click="startResearch"></i>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
                 </div>
-                <div class="start" >
-                    <i  class="fas fa-search" @click="startResearch"></i>
-                    <i class="fas fa-ellipsis-h"></i>
+                <div class="container-hide" v-if="start" :class="active">
+                    <div class="back" @click="comeBack">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="cont-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Cerca" v-model="query" @keyup="globalSearch" class="research">
+                    </div>
+
+                </div>
+            </header>
+        <!-- </div> -->
+
+            <div class="video-container" v-if="query.length == 0" :class="opacity">
+                <div style="color: white">
+                </div>
+                <div class="border-video">
+                    <video loop autoplay class="video" src="avatar.mp4" type="video.mp4"></video>
+
                 </div>
             </div>
+            <div class="lista-consigliati"  v-if="query.length == 0" :class="opacity" >
 
-            <div class="container-hide" v-if="start" :class="active">
-                <div class="back" @click="comeBack">
-                    <i  class="fas fa-arrow-left"></i>
+                <div style="margin-top: 20px; display: flex; flex-direction: column; justify-content: space-around;">
+    
+                    <h3 style="color: #fff; padding: 0; margin: 0;">Top film su Daveflix</h3>
+                    <div  class="template-img ">
+    
+                        <div :class="pxScroll == 0 ? 'none' : ''" class="prev" @click="prevImg">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <div class="img-array" >
+    
+                            <div :style="`left: ${pxScroll}px`" class="invisible">
+                                <div v-for='(top, index) in topMovies' class="container-img-slider">
+                                    <img :src="'https://image.tmdb.org/t/p/w342' + top.poster_path " alt="">
+    
+                                </div>
+                            </div>
+                        </div>
+                        <div :class="none" class="next" @click='nextImg'>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+    
+    
+                    </div>
                 </div>
-                <div class="cont-search">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Cerca" v-model="query" @keyup="globalSearch" class="research">
+                
+                <div style="margin: 40px 0; display: flex; flex-direction: column; justify-content: space-around;">
+    
+                    <h3 style="color: #fff; padding: 0; margin: 0;">Serie Tv popolari su Daveflix</h3>
+                    <div class="template-img ">
+    
+                        <div  :class="pxScroll == 0 ? 'none' : ''"  class="prev" @click="prevImg">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <div class="img-array" style='height: 300px;'>
+    
+                            <div :style="`left: ${pxScroll}px`" class="invisible">
+                                <div v-for='(top, index) in topSeries' class="container-img-slider">
+                                    <img :src="'https://image.tmdb.org/t/p/w342' + top.poster_path " alt="">
+    
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="next" :class="none" @click='nextImg'>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <div style=" display: flex; flex-direction: column; justify-content: space-around;">
+    
+                    <h3 style="color: #fff; padding: 0; margin: 0;">Film con attori popolari su Daveflix</h3>
+                    <div  class="template-img ">
+    
+                        <div :class="pxScroll == 0 ? 'none' : ''"  class="prev" @click="prevImg">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <div class="img-array" style='height: 300px;'>
+    
+                            <div :style="`left: ${pxScroll}px`" class="invisible">
+                                <div v-for='(top, index) in person' class="container-img-slider">
+                                    <img :src="'https://image.tmdb.org/t/p/w342' + top.poster_path" alt="">
+    
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="next" :class="none" @click='nextImg'>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+    
+                    </div>
                 </div>
 
             </div>
-            <!-- <div class="container">
 
-            </div>
-            -->
-        </header>
         <main>
-            <div  v-if="query.length > 0"  class="main-container">
+
+
+            <div v-if="query.length > 0"  class="main-container">
                 <div class="main-header" style="margin-bottom: 5%;">
-                    <h2 class="cds-title">Film e programmi TV</h2>
-                    <h2>Suggerimenti</h2>
+                    <h2  style="font-weight: 300;" class="cds-title">Film e programmi TV</h2>
+                    <h2 style="font-weight: 300;" >Suggerimenti</h2>
                 </div>
                 <div class="cds-container container" >
                     <div v-if=" movies " class="film" v-for=" (movie,index) in movies ">
                         <div @mouseleave="hoverBack(index)" @mouseover="hoverDescription(index)"   class="posts">
                                 <img :class="movies[index].activeHover ? noneImg : '' " v-if=" (movie.poster_path != null) " :src=" 'https://image.tmdb.org/t/p/w342' + movie.poster_path " class="poster" alt="">
-                                <img :class="movies[index].activeHover ? noneImg : '' " v-else :src="'img/' + imgNull" alt="" class="imgNulla"> 
+                                <img :class="movies[index].activeHover ? noneImg : '' " v-else :src="'img/' + imgNull" alt="" class="imgNulla">
                             <div v-if="movies[index].activeHover" class="active-hover" :class=" activeImg ">
-                                <h5>
+                                <p class="film-title">
                                     {{ movie.title || movie.name }}
-                                </h5>
-                                <span style="font-size: 10px;" class="author">
-                                    Titolo Originale:
-                                    {{ movie.original_title || movie.original_name }}
-                                    
-                                    
-                                </span>
-                                <span class="year">
-                                    Data:
-                                    {{ movie.release_date || movie.first_air_date }} 
-                                    
-                                </span>
-                                <div class="lingua">
-                                    lan:
-                                    {{ movie.original_language }}
-                                    <img :src=" 'img/' + movie.original_language +'.png' "  id="flag" alt="">
-                                </div>
-                                <div>
-                                    vote:
-                                    {{ movie.vote_average }}
+                                </p>
+                                <div class="container-voto">
+
                                     <div class="rating-star">
                                         <span style="color: gold; -webkit-text-stroke: black;" v-for="n in movie.votoStelle">
                                             &starf;
@@ -87,14 +159,36 @@
                                             &starf;
                                         </span>
                                     </div>
+                                    <p style="font-size: 8px;">
+                                        {{ movie.vote_average }} / 10
+                                    </p>
                                 </div>
+
+                                <div class="lingua">
+                                    {{ movie.original_language }}
+                                    <img :src=" 'img/' + movie.original_language +'.png' "  id="flag" alt="">
+                                </div>
+                                <span style="font-size: 10px;" class="author">
+                                    Titolo Originale:
+                                    {{ movie.original_title || movie.original_name }}
+
+
+                                </span>
+                                <p class="trama">
+                                    {{ movie.overview }}
+                                </p>
+                                <span class="year">
+                                    Data:
+                                    {{ movie.release_date || movie.first_air_date }}
+
+                                </span>
                             </div>
                         </div>
-        
-                        
+
+
                     </div>
-        
-                    <div v-else>
+
+                    <div v-else="query == false">
                         <h2>I criteri inseriti non hanno soddisfatto la ricerca</h2>
                     </div>
                 </div>
@@ -102,9 +196,8 @@
 
 
 
-            </div>
 
-    
+
     </div>
 
 

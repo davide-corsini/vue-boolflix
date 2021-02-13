@@ -7,17 +7,17 @@
 body {
     background: black;
     min-height: 100vh;
-    /* overflow-y: hidden; */
+    font-family: 'Bebas Neue', cursive;
+    font-size: 15px;
 }
 header {
     width: 100%;
     height: 70px;
-    background-color: black;
+    z-index: 4;
 
     position: relative;
 }
 header i{
-    font-size: 15px;
     color: #fff;
     cursor: pointer;
 }
@@ -95,6 +95,7 @@ div.back{
     height: 100%;
     height: 100%;
     margin: 0 auto;
+    z-index: 500;
 }
 
 
@@ -116,8 +117,7 @@ h2.cds-title{
     height: 100%;
     align-items: center;
     flex-wrap: wrap;
-    /* overflow-y: auto; */
-        min-height: 100vh;
+    min-height: 100vh;
 
 }
 
@@ -140,6 +140,7 @@ div.active-hover{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: white;
 }
 
 /*. questo si vede*/
@@ -147,23 +148,36 @@ div.active-hover.activeImg{
     width: 100%;
     height: 100%;
     z-index: 2;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: white;
 }
 
+div.lingua{
+    display: flex;
+    width: 13%;
+    justify-content: space-around;
+}
 
-
-
+.container-voto{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items:  center;
+}
 .film img {
     max-width: 100%;
 }
 
 div.posts{
     width: 100%;
-    height: 240px;
+    height: 360px;
     border: 2px solid rgba(0, 0, 0, 0.877);
     position: relative;
 }
@@ -181,11 +195,9 @@ div.posts img.noneImg{
     opacity: 0.1;
 }
 
-.film h5 {
-    margin: 20px 0;
-    color: white;
-    font-size: 10px;
-    text-transform: uppercase;
+
+.film-title{
+    font-size: 20px;;
 }
 
 .film span.author {
@@ -195,6 +207,7 @@ div.posts img.noneImg{
 
 .film span.year {
     color: grey;
+    font-size: 10px;
 }
 
 .rosso{
@@ -213,23 +226,125 @@ div.posts img.noneImg{
 #flag{
     width: 20px;
     height: 20px;
-} 
+}
 
-/* parte rating stars */
 
-/* .rating-star{
+
+
+.trama{
+    background-color: rgba(0, 0, 0, 0.479);
+    padding: 1%;
+    font-size: 10px;
+    max-width: 80%;
+    margin: 0 auto;
+    max-height: 70px;
+    min-height: 60px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+
+.video-container{
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 450px;
+    max-width: 1240px;
+}
+
+
+.border-video{
+
+    width: 100%;
     position: relative;
 }
-
-.rating-color{
-    color: rgba(255, 217, 0, 0.719);
-    
-}
-
-.rating-color{
-    white-space: no-wrap;
+.video{
+    width: 100%;
+    height: 500px;
+    position: relative;
     position: absolute;
-    top: 0;
-    left: 0;
+    right: -25%;
 }
- */
+
+div.popular{
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* slider */
+.template-img{
+    width: 100%;
+    height: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px 0;
+}
+.img-array{
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+    flex-shrink: 0;
+    position: relative;
+    left: 0px;
+}
+.invisible{
+    position: relative;
+    left: 0;
+    display: flex;
+    align-items: center;
+    transition: 400ms ease all;
+
+}
+.container-img-slider {
+    width: 200px;
+    height: 250px;
+    background-color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: 400ms ease all;
+
+}
+.container-img-slider img{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+.prev,
+.next{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    background: rgba(92, 92, 92, 0.418);
+    cursor: pointer;
+    width: 1%;
+}
+
+.prev i,
+.next i{
+    font-size: 30px;
+    color: #fff;
+}
+
+.next.none{
+    display: none;
+}
+.prev.none{
+    display: none;
+}
+.video-container.total-opacity{
+    opacity: 0.3;
+}
+.lista-consigliati.total-opacity{
+    opacity: 0.2;
+}
+
