@@ -190,6 +190,7 @@ div.posts img{
     height: 100%;
     background-position: center;
     position: relative;
+    object-fit: cover;
 }
 
 div.posts img.noneImg{
