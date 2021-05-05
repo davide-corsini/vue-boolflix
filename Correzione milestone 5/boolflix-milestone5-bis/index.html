@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <select v-model="generiValue">
+      <option :value="genere" v-for='genere in generi'>{{genere}}</option>
+    </select>
+    <input type="text" v-model="query" @keyup.enter="search">
+
+    <div v-for="result in risultati" v-if="generiValue == 'All' || result.genereName.includes(generiValue)" class="movie">
+        <img v-if="result.poster_path" :src="getPoster(result.poster_path)" :alt="result.title">
+        <img v-else src="https://www.altavod.com/assets/images/poster-placeholder.png" :alt="result.title || result.name">
+
+        <h3 v-if="result.title || result.name">{{ result.title || result.name }}</h3>
+        <p>Cast:
+        <span v-for="(i,index) in result.cast">
+          {{ i }}<span v-if="index!=4"> - </span>
+        </span></p>
+        <h3>Genere: {{result.genereName}}</h3>
+
+    </div>
+  </div>
+
+  <script src="script.js" charset="utf-8"></script>
+
+</body>
+</html>

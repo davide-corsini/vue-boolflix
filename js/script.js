@@ -25,7 +25,11 @@ var app = new Vue({
         attivoScroll: false,
         attivoScroll2: false,
         attivoScroll3: false,
-        opacity: false
+        opacity: false,
+        //mileston 5/6
+        genreVal: 'All',
+        generi: [],
+        risultati : []
     },
     created(){
         // top rated films
@@ -69,6 +73,45 @@ var app = new Vue({
 
 
     },
+    mounted(){
+        //movie
+        axios
+            .get("https://api.themoviedb.org/3/genre/movie/list", {
+                params: {
+                    api_key: this.apiKey,
+                    query: this.query,
+                    language: 'it-IT'
+                }
+            })
+            .then((result) => {
+                result.data.genres.forEach(element => {
+                    if(!this.generi.includes(element.name)){
+                        this.generi.push(element.name);
+                    }
+                });
+
+            })
+
+        //serie tv
+        axios
+            .get("https://api.themoviedb.org/3/genre/tv/list", {
+                params: {
+                    api_key: this.apiKey,
+                    query: this.query,
+                    language: 'it-IT'
+                }
+            })
+            .then((result) => {
+                result.data.genres.forEach(element => {
+                    if (!this.generi.includes(element.name)) {
+                        this.generi.push(element.name);
+                    }
+                });
+                this.generi = this.generi.sort();
+                this.generi.unshift('All')
+
+            })
+    },
     methods: {
         globalSearch(){//global search é una funzione global per la ricerca ad un evento keyup
             //Questa call é riferita solo e unicamente per i film
@@ -83,7 +126,13 @@ var app = new Vue({
             .then((result) => {
                 this.movies = result.data.results;
 
+                this.movies.forEach((element) => {
+                    this.getCast(element, "movie");
+                    this.getGenres(element, "movie");
+                    
+                })
                 this.ratingStars();
+                console.log(this.movies, 'ciao sono nuovo filmmmmmmm');
 
             })
 
@@ -98,13 +147,53 @@ var app = new Vue({
                 })
             .then((result) => {
                 this.movies = this.movies.concat( result.data.results );
+                this.movies.forEach((element) => {
+                    this.getCast(element, "tv");
+                    this.getGenres(element, "tv");
+                })
+                console.log(this.movies, 'ciao sono nuovo serie tvvvvvvvv');
 
                 this.ratingStars();
             })
             
-            
+            console.log(this.genreVal);
         },
-
+        getCast(el, tipo) {
+            axios.get(`https://api.themoviedb.org/3/${tipo}/${el.id}/credits?`, {
+                params: {
+                    language: 'it-IT',
+                    api_key: this.apiKey
+                }
+            }).then((response) => {
+                let castArray = response.data.cast;
+                let castNames = [];
+                castArray.slice(0, 5).forEach((person) => {
+                    castNames.push(person.name);
+                });
+                Vue.set(el, "cast", castNames);
+            })
+        },
+        getGenres(el, tipo) {
+            axios.get(`https://api.themoviedb.org/3/genre/${tipo}/list?`, {
+                params: {
+                    language: 'it-IT',
+                    api_key: this.apiKey
+                }
+            })
+                .then(result => {
+                    let genresName = [];
+                    let tempGenres = result.data.genres;
+                    // console.log(tempGenres);
+                    // console.log(el);
+                    tempGenres.forEach(item => {
+                        if (el.genre_ids.includes(item.id)) {
+                            genresName.push(item.name);
+                            // console.log(genresName);
+                        }
+                    })
+                    Vue.set(el, "genereName", genresName);
+                })
+        },     
         ratingStars(){
             this.movies = this.movies.map(element => {
                 return {
@@ -112,9 +201,7 @@ var app = new Vue({
                     votoStelle: Math.round(element.vote_average / 2)
                 }
             })
-        }
-        ,
-
+        },
         startResearch(){
             this.start = !this.start;
             if(this.start == true){
@@ -143,12 +230,12 @@ var app = new Vue({
                     activeHover: false
                 }
             })
-            console.log(this.movies);
+            // console.log(this.movies);
 
 
             this.movies[index].activeHover = !this.movies[index].activeHover;
 
-            console.log(this.movies[index].activeHover);
+            // console.log(this.movies[index].activeHover);
             
             if (this.movies[index].activeHover == true) {
                 this.activeImg = 'activeImg';
@@ -163,8 +250,6 @@ var app = new Vue({
         hoverBack(index){
             return this.movies[index].activeHover = false;
         },
-
-
         nextImg(){
             let larghezzaImg = document.getElementsByClassName('container-img-slider')[0].offsetWidth;
             console.log(larghezzaImg);
@@ -221,7 +306,7 @@ var app = new Vue({
             this.pxScroll += larghezzaImg;
             
             return this.none = '';
-        }        
+        },
     },
 
 
